@@ -49,6 +49,14 @@ struct _mdsys {
 };
 typedef struct _mdsys mdsys_t;
 
+/* helper funciotn. for time */
+static double wallclock(void)
+{
+    struct timeval t;
+    gettimeofday(&t,0);
+    return ((double) t.tv_sec) + 1.0e-6*((doubl) t.tv_usec);
+}
+
 /* helper function: read a line and then return
    the first string with whitespace stripped off */
 static int get_a_line(FILE *fp, char *buf)
@@ -454,6 +462,8 @@ int main(int argc, char **argv)
     char restfile[BLEN], trajfile[BLEN], ergfile[BLEN], line[BLEN];
     FILE *fp,*traj,*erg;
     mdsys_t sys;
+    double t_start;
+    t_start = wallclock()
 
     puts(LJMD_VERSION);
 
@@ -526,7 +536,7 @@ int main(int argc, char **argv)
     
     erg=fopen(ergfile,"w");
     traj=fopen(trajfile,"w");
-
+    printf("Startup time: %10.3fs\n", wallclock()t_start);
     printf("Starting simulation with %d atoms for %d steps.\n",sys.natoms, sys.nsteps);
     printf("     NFI            TEMP            EKIN                 EPOT              ETOT\n");
     output(&sys, erg, traj);
@@ -550,10 +560,12 @@ int main(int argc, char **argv)
     /**************************************************/
 
     /* clean up: close files, free memory */
-    printf("Simulation Done.\n");
-    fclose(erg);
-    fclose(traj);
-    free(sys.pos);
+    printf("Simulation Done. Run time: %10.3fs\n",
+    wallclock()t_
+    start);
+    fclose(erg);
+    fclose(traj);
+    free(sys.pos);
     free(sys.vel);
     free(sys.frc);
     free_cell_list(&sys);
