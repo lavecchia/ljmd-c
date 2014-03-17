@@ -13,6 +13,8 @@
 #include <omp.h>
 #endif
 
+#define LJMD_VERSION "ljmd-c MJL V1.0"
+
 /* generic file- or pathname buffer length */
 #define BLEN 200
 
@@ -452,6 +454,8 @@ int main(int argc, char **argv)
     char restfile[BLEN], trajfile[BLEN], ergfile[BLEN], line[BLEN];
     FILE *fp,*traj,*erg;
     mdsys_t sys;
+
+    puts(LJMD_VERSION);
 
 #if defined(_OPENMP)
 #pragma omp parallel
