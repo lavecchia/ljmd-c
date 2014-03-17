@@ -560,7 +560,7 @@ int main(int argc, char **argv)
     /**************************************************/
 
     /* clean up: close files, free memory */
-    printf("Simulation Done. Run time: %10.3fs\n",
+    printf("Simulation Done! Run time: %10.3fs\n",
     wallclock()t_
     start);
     fclose(erg);
